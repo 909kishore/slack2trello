@@ -8,7 +8,7 @@ var port = process.env.PORT || 3000;
  
 app.use(bodyParser.urlencoded({ extended: true }));
 
-function postToTrello(listId, command, text, cb) {
+function postToTrello(listId, command, text, channel, cb) {
 
 //  var regex = /"(.*?)"/g;
 //	var name = regex.exec(text);
@@ -36,12 +36,13 @@ function postToTrello(listId, command, text, cb) {
 app.post('/*', function(req, res) {
   	var listId = req.params[0];
     var command = req.body.command,
-        text = req.body.text;
+        text = req.body.text,
+        channel = req.body.channel_id;
 
-    postToTrello(listId, command, text, function(err, data) {
+    postToTrello(listId, command, text, channel, function(err, data) {
 		if (err) throw err;
   		console.log(data);
-  		res.status(200).send('Trello card created');
+  		res.status(200).send('Trello card created channel:' + channel);
     });
 });
 
