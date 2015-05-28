@@ -47,6 +47,8 @@ app.post('/*', function(req, res) {
   		res.status(200).send('Trello card created channel:' + process.env.INCOMING_WEBHOOK);
     });
     
+    
+/*    
 // write response message and add to payload
   botPayload.text = req.body.user_name + ' created #trello card: ' + req.body.text;
   botPayload.username = 'trellobot';
@@ -87,7 +89,7 @@ function send (payload, callback) {
 }
     
 });
-
+*/
 // test route
 app.get('/', function (req, res) { res.status(200).send('Made By Kishore') });
  
