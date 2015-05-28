@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Trello = require("node-trello");
 var trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN);
+var botPayload = {};
+
 
 var app = express();
 var port = process.env.PORT || 3000;
