@@ -42,7 +42,7 @@ app.post('/*', function(req, res) {
     postToTrello(listId, command, text, channel, function(err, data) {
 		if (err) throw err;
   		console.log(data);
-  		res.status(200).send('Trello card created channel:' + channel);
+  		res.status(200).send('Trello card created channel:' + process.env.INCOMING_WEBHOOK);
     });
 });
 
