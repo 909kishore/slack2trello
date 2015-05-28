@@ -44,6 +44,47 @@ app.post('/*', function(req, res) {
   		console.log(data);
   		res.status(200).send('Trello card created channel:' + process.env.INCOMING_WEBHOOK);
     });
+    
+// write response message and add to payload
+  botPayload.text = req.body.user_name + ' created #trello card: ' + req.body.text;
+  botPayload.username = 'trellobot';
+  botPayload.channel = req.body.channel_id;
+  botPayload.icon_emoji = ':email:';
+
+  // send
+  send(botPayload, function (error, status, body) {
+    if (error) {
+      return next(error);
+
+    } else if (status !== 200) {
+      // inform user that our Incoming WebHook failed
+      return next(new Error('Incoming WebHook: ' + status + ' ' + body));
+
+    } else {
+      return res.status(200).end();
+    }
+  });
+}
+
+
+function send (payload, callback) {
+//  var path = process.env.INCOMING_WEBHOOK_PATH;
+//  var uri = 'https://hooks.slack.com/services' + path;
+	var uri = process.env.INCOMING_WEBHOOK;
+
+  request({
+    uri: uri,
+    method: 'POST',
+    body: JSON.stringify(payload)
+  }, function (error, response, body) {
+    if (error) {
+      return callback(error);
+    }
+
+    callback(null, response.statusCode, body);
+  });
+}
+    
 });
 
 // test route
