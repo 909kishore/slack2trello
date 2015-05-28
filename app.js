@@ -48,13 +48,13 @@ app.post('/*', function(req, res) {
     });
     
     
-/*    
+    
 // write response message and add to payload
   botPayload.text = req.body.user_name + ' created #trello card: ' + req.body.text;
   botPayload.username = 'trellobot';
   botPayload.channel = req.body.channel_id;
   botPayload.icon_emoji = ':email:';
-
+/*
   // send
   send(botPayload, function (error, status, body) {
     if (error) {
